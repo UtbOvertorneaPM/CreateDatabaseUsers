@@ -11,7 +11,7 @@ namespace PasswordHasher {
 
             IUser user = new User();
 
-            user.Name = inputHandler.Prompt("Please input username");
+            user.Name = inputHandler.Prompt("Please input name of user you would like to create");
             user.Password = inputHandler.PromptPassword();
 
             PrintUser(user);

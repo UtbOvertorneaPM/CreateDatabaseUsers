@@ -14,9 +14,11 @@ namespace PasswordHasher {
 
             while (loop) {
 
+                
                 Console.WriteLine("1: Generate a password");
                 Console.WriteLine("2: Create a new user in a MySql database");
                 var choiceSelect = inputHandler.Prompt("Which option would you like?");
+                Console.Clear();
 
                 if (int.TryParse(choiceSelect, out int choiceResult)) {
 
@@ -25,15 +27,11 @@ namespace PasswordHasher {
                         case 1:
 
                             GenerateSecurePassword(inputHandler);
-                            loop = false;
-
                             break;
 
                         case 2:
 
                             CreateDbUser(inputHandler);
-                            loop = false;
-
                             break;
 
                         default:
@@ -54,6 +52,7 @@ namespace PasswordHasher {
 
             Console.WriteLine("Your encrypted password is:");
             Console.WriteLine(encryptor.EncryptPassword(password));
+            Console.WriteLine();
         }
 
 
@@ -65,7 +64,7 @@ namespace PasswordHasher {
             IValidator<IUser> validator = new UserValidator();
 
             dbHandler.Login(inputHandler);
-            Console.WriteLine();
+            Console.Clear();
 
             while (true) {
 
