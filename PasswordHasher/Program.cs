@@ -8,7 +8,58 @@ namespace PasswordHasher {
 
         static void Main(string[] args) {
 
+            var loop = true;
+
             IInputHandler inputHandler = new InputHandler();
+
+            while (loop) {
+
+                Console.WriteLine("1: Generate a password");
+                Console.WriteLine("2: Create a new user in a MySql database");
+                var choiceSelect = inputHandler.Prompt("Which option would you like?");
+
+                if (int.TryParse(choiceSelect, out int choiceResult)) {
+
+                    switch (choiceResult) {
+
+                        case 1:
+
+                            GenerateSecurePassword(inputHandler);
+                            loop = false;
+
+                            break;
+
+                        case 2:
+
+                            CreateDbUser(inputHandler);
+                            loop = false;
+
+                            break;
+
+                        default:
+
+                            Console.WriteLine("Not a valid input");
+                            break;
+                    }
+                }
+            }
+        }
+
+
+        public static void GenerateSecurePassword(IInputHandler inputHandler) {
+
+            var password = inputHandler.PromptPassword();
+
+            IEncryptionHandler encryptor = new EncryptionHandler();
+
+            Console.WriteLine("Your encrypted password is:");
+            Console.WriteLine(encryptor.EncryptPassword(password));
+        }
+
+
+        public static void CreateDbUser(IInputHandler inputHandler) {
+
+
             IUserHandler handler = new UserHandler();
             IDbHandler dbHandler = new DbHandler();
             IValidator<IUser> validator = new UserValidator();
@@ -44,6 +95,5 @@ namespace PasswordHasher {
                 }
             }
         }
-
     }
 }

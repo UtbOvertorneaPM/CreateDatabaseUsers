@@ -29,7 +29,7 @@ namespace PasswordHasher {
 
             IEncryptionHandler encrypter = new EncryptionHandler();
 
-            user = encrypter.Encrypt(user);
+            user.Password = encrypter.EncryptPassword(user.Password);
             
             return user;
         }
