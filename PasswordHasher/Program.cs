@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Net.Sockets;
+﻿using System;
 
 namespace PasswordHasher {
 
@@ -13,7 +11,6 @@ namespace PasswordHasher {
             IInputHandler inputHandler = new InputHandler();
 
             while (loop) {
-
                 
                 Console.WriteLine("1: Generate a password");
                 Console.WriteLine("2: Create a new user in a MySql database");
