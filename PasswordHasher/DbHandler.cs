@@ -13,12 +13,11 @@ namespace PasswordHasher {
 
         public void Login(IInputHandler inputHandler) {
 
-            var server = inputHandler.Prompt("Input server name");
             var database = inputHandler.Prompt("Input the database name");
             var user = inputHandler.Prompt("Input database user name");
             var password = inputHandler.PromptPassword();
             
-            _userContext = new UserContext(password, database, server, user);
+            _userContext = new UserContext(password, database, user);
         }
 
         public async Task<int> AddUserAsync(IUser user) {
