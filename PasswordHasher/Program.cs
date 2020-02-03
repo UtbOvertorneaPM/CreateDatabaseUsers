@@ -30,6 +30,12 @@ namespace PasswordHasher {
 
                             CreateDbUser(inputHandler);
                             break;
+                            
+                        case 3:
+
+                            EditDbUser(inputHandler);
+                            break;
+
 
                         default:
 
@@ -90,6 +96,43 @@ namespace PasswordHasher {
                     break;
                 }
             }
+        }
+        
+        public static void EditDbUser(IInputHandler inputHandler) {
+
+	
+            IUserHandler handler = new UserHandler();
+            IDbHandler dbHandler = new DHandler();
+            IValidator<IUser> validator = new UserValidator();
+
+            dhHandler.Login(inputHandler);
+            Console.Clear();
+
+            while(true) {
+                
+                if(validator.Validate(user)) {
+                    try {
+
+                        var _ = dbHandler.EditUserAsync(user).Result;
+                        Console.WriteLine("User Sucessfully edited");
+                        Console.WriteLine();
+                    }
+                    catch (AggregateException) {
+
+                        Console.WriteLine();
+                        Console.WriteLine("Unable to connect to database");
+                    }
+                
+                else {
+
+                    Console.WriteLine("User input invalid");
+                }
+
+                if (inputHandler.PromptConfirm("Do you wish to add more users?") is false) {
+                    break;
+                }
+            }
+
         }
     }
 }
