@@ -21,6 +21,21 @@ namespace PasswordHasher {
             await _userContext.Users.AddAsync((User)user);
             return await _userContext.SaveChangesAsync();
         }
+        
+        public async Task DisplayUsersAsync() {
+         
+            var users = await _userContxt.Users.ToListAsync();
+            DisplayUsers(users);
+        }
+        
+        
+        private void DisplayUsers(List<IUser> users) {
+        
+            for(i = 0; i < users.count; i++) {
+            
+                Console.WriteLine($"{i} : {users.Name}");
+            }
+        }
 
         ~DbHandler() {
             
