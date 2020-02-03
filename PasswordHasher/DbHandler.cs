@@ -33,7 +33,7 @@ namespace PasswordHasher {
         
             for(i = 0; i < users.count; i++) {
             
-                Console.WriteLine($"{i} : {users.Name}");
+                Console.WriteLine($"{users.Id} : {users.Name}");
             }
         }
 
