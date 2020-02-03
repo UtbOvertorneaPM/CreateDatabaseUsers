@@ -14,7 +14,10 @@ namespace PasswordHasher {
                 
                 Console.WriteLine("1: Generate a password");
                 Console.WriteLine("2: Create a new user in a MySql database");
+		Console.WriteLine("3: Edit existing user");
+		    
                 var choiceSelect = inputHandler.Prompt("Which option would you like?");
+		    
                 Console.Clear();
 
                 if (int.TryParse(choiceSelect, out int choiceResult)) {
@@ -35,7 +38,6 @@ namespace PasswordHasher {
 
                             EditDbUser(inputHandler);
                             break;
-
 
                         default:
 
@@ -71,6 +73,7 @@ namespace PasswordHasher {
 
             while (true) {
 
+		
                 var user = handler.CreateUser(inputHandler);
 
                 if (validator.Validate(user)) {
@@ -108,9 +111,16 @@ namespace PasswordHasher {
             dhHandler.Login(inputHandler);
             Console.Clear();
 
+	    dbHandler.DisplayUsersAsync();	
+            
             while(true) {
                 
-                if(validator.Validate(user)) {
+		Console.WriteLine("Please enter the ID of the user you wish to edit");
+		var id = Console.ReadLine();
+		
+		var user = dbHandler.GetUser(id);
+		    
+                if(user != null && validator.Validate(user)) {
                     try {
 
                         var _ = dbHandler.EditUserAsync(user).Result;
