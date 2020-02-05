@@ -125,7 +125,7 @@ namespace PasswordHasher {
 		    
 		var user = dbHandler.GetUser(id);
 
-		user = userHandler.EditUser(user);
+		user = userHandler.EditUser(inputHandler, user);
 		    
                 if(user != null && validator.Validate(user)) {
 			
