@@ -65,9 +65,7 @@ namespace PasswordHasher {
             return EncryptPassword(user);
         }
         
-
-        
-        
+	    
         public static void EditDbUser(IInputHandler inputHandler) {
 
             IDbHandler dbHandler = new DHandler();
