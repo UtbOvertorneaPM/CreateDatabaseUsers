@@ -61,8 +61,10 @@ namespace PasswordHasher {
 
                 return null;
             }
-            
-            return EncryptPassword(user);
+		 
+            EncryptPassword(ref user);
+		    
+            return user;
         }
         
 	    
@@ -137,7 +139,7 @@ namespace PasswordHasher {
                         }
                         else {
 
-                            return EncryptPassword(user);				
+                            EncryptPassword(ref user);				
                             break;
                         }
                     }
@@ -149,12 +151,10 @@ namespace PasswordHasher {
         }
 		
         
-        private IUser EncryptPassword(IUser user) {
+        private void EncryptPassword(ref IUser user) {
         
             IEncryptionHandler encrypter = new EncryptionHandler();
             user.Password = encrypter.EncryptPassword(user.Password);
-            
-            return user;
         }
 
 
