@@ -104,7 +104,7 @@ namespace PasswordHasher {
         public static void EditDbUser(IInputHandler inputHandler) {
 
 	
-            IUserHandler handler = new UserHandler();
+            IUserHandler userHandler = new UserHandler();
             IDbHandler dbHandler = new DHandler();
             IValidator<IUser> validator = new UserValidator();
 
@@ -115,49 +115,17 @@ namespace PasswordHasher {
             
             while(true) {
                 
-		Console.WriteLine("Please enter the ID of the user you wish to edit");
+		Console.WriteLine("Please enter the ID of the user you wish to edit or leave blank to return");
 		var id = Console.ReadLine();
 		
-		var user = dbHandler.GetUser(id);
-		
-		Console.WriteLine("1: Change user name");
-		Console.WriteLine("2: Change password");
-		var input = Console.ReadLine();
-		    
-		switch(input) {
-		
-			case 1:
-				
-				Console.Clear();
-				Console.WriteLine("Please input the name you would like to change to or leave blank to cancel");
-				var newName = Console.ReadLine();
-				
-				user.Name = newName;
-				
-				break;
-			case 2:		
-
-				while (true) {
-					
-					Console.Clear();
-					Console.WriteLine("Please input the new password");
-					var pass = Console.ReadLine();
-				
-					if (pass.Length < 8) {
-					 
-						Console.WriteLine("Password has to be at least 8 characters");
-					}
-					else {
-						
-						IEncryptionHandler encrypter = new EncryptionHandler();
-            					user.Password = encrypter.EncryptPassword(pass);
-						break;
-					}
-				
-				}
-				
-				break;				
+		if (string.NullOrEmpty(id)) {
+			
+			return;
 		}
+		    
+		var user = dbHandler.GetUser(id);
+
+		user = userHandler.EditUser(user);
 		    
                 if(user != null && validator.Validate(user)) {
 			
@@ -177,9 +145,6 @@ namespace PasswordHasher {
                     Console.WriteLine("User input invalid");
                 }
 
-                if (inputHandler.PromptConfirm("Do you wish to add more users?") is false) {
-                    break;
-                }
             }
 
         }
