@@ -2,11 +2,8 @@
 
 namespace PasswordHasher {
 
-    public class UserHandler : IUserHandler {
-        
-        
-        
-        public static void CreateDbUser(IInputHandler inputHandler) {
+	
+       public static void CreateDbUser(IInputHandler inputHandler) {
 
             IDbHandler dbHandler = new DbHandler();
             IValidator<IUser> validator = new UserValidator();
@@ -43,54 +40,11 @@ namespace PasswordHasher {
                 }
             }
         }
+	
+	
+    public class UserHandler : IUserHandler {
         
-        
-        public static void EditDbUser(IInputHandler inputHandler) {
-
-            IDbHandler dbHandler = new DHandler();
-            IValidator<IUser> validator = new UserValidator();
-
-            dhHandler.Login(inputHandler);
-            Console.Clear();
-
-	        dbHandler.DisplayUsersAsync();	
-            
-            while(true) {
-                
-                Console.WriteLine("Please enter the ID of the user you wish to edit or leave blank to return");
-                var id = Console.ReadLine();
-
-                if (string.NullOrEmpty(id)) {
-
-                    return;
-                }
-
-                var user = dbHandler.GetUser(id);
-
-                user = userHandler.EditUser(inputHandler, user);
-
-                        if(user != null && validator.Validate(user)) {
-
-                            try {
-
-                                var _ = dbHandler.EditUserAsync(user).Result;
-                                Console.WriteLine("User Sucessfully edited");
-                                Console.WriteLine();
-                            }
-                            catch (AggregateException) {
-
-                                Console.WriteLine();
-                                Console.WriteLine("Unable to connect to database");
-                            }                
-                        else {
-
-                            Console.WriteLine("User input invalid");
-                        }
-            }
-        }
-            
-
-        public IUser CreateUser(IInputHandler inputHandler) {
+         public IUser CreateUser(IInputHandler inputHandler) {
 
             IUser user = new User();
 
@@ -113,6 +67,52 @@ namespace PasswordHasher {
             return EncryptPassword(user);
         }
         
+
+        
+        
+        public static void EditDbUser(IInputHandler inputHandler) {
+
+            IDbHandler dbHandler = new DHandler();
+            IValidator<IUser> validator = new UserValidator();
+
+            dhHandler.Login(inputHandler);
+            Console.Clear();
+
+	    dbHandler.DisplayUsersAsync();	
+            
+            while(true) {
+                
+                Console.WriteLine("Please enter the ID of the user you wish to edit or leave blank to return");
+                var id = Console.ReadLine();
+
+                if (string.NullOrEmpty(id)) {
+
+                    return;
+                }
+
+                var user = dbHandler.GetUser(id);
+                user = EditUser(inputHandler, user);
+
+		if(user != null && validator.Validate(user)) {
+
+		    try {
+
+			var _ = dbHandler.EditUserAsync(user).Result;
+			Console.WriteLine("User Sucessfully edited");
+			Console.WriteLine();
+		    }
+		    catch (AggregateException) {
+
+			Console.WriteLine();
+			Console.WriteLine("Unable to connect to database");
+		    }                
+		else {
+
+		    Console.WriteLine("User input invalid");
+		}
+            }
+        }          
+
         
         public IUser EditUser(IInputHandler inputHandler, IUser user) {
         
