@@ -108,8 +108,9 @@ namespace PasswordHasher {
 
 		    Console.WriteLine("User input invalid");
 		}
-            }
-        }          
+            	}
+           }     
+	}
 
         
         public IUser EditUser(IInputHandler inputHandler, IUser user) {
