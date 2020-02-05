@@ -64,7 +64,7 @@ namespace PasswordHasher {
         public static void CreateDbUser(IInputHandler inputHandler) {
 
 
-            IUserHandler handler = new UserHandler();
+            IUserHandler userHandler = new UserHandler();
             IDbHandler dbHandler = new DbHandler();
             IValidator<IUser> validator = new UserValidator();
 
@@ -74,7 +74,7 @@ namespace PasswordHasher {
             while (true) {
 
 		
-                var user = handler.CreateUser(inputHandler);
+                var user = userHandler.CreateUser(inputHandler);
 
                 if (validator.Validate(user)) {
 
@@ -119,8 +119,48 @@ namespace PasswordHasher {
 		var id = Console.ReadLine();
 		
 		var user = dbHandler.GetUser(id);
+		
+		Console.WriteLine("1: Change user name");
+		Console.WriteLine("2: Change password");
+		var input = Console.ReadLine();
+		    
+		switch(input) {
+		
+			case 1:
+				
+				Console.Clear();
+				Console.WriteLine("Please input the name you would like to change to or leave blank to cancel");
+				var newName = Console.ReadLine();
+				
+				user.Name = newName;
+				
+				break;
+			case 2:		
+
+				while (true) {
+					
+					Console.Clear();
+					Console.WriteLine("Please input the new password");
+					var pass = Console.ReadLine();
+				
+					if (pass.Length < 8) {
+					 
+						Console.WriteLine("Password has to be at least 8 characters");
+					}
+					else {
+						
+						IEncryptionHandler encrypter = new EncryptionHandler();
+            					user.Password = encrypter.EncryptPassword(pass);
+						break;
+					}
+				
+				}
+				
+				break;				
+		}
 		    
                 if(user != null && validator.Validate(user)) {
+			
                     try {
 
                         var _ = dbHandler.EditUserAsync(user).Result;
@@ -131,8 +171,7 @@ namespace PasswordHasher {
 
                         Console.WriteLine();
                         Console.WriteLine("Unable to connect to database");
-                    }
-                
+                    }                
                 else {
 
                     Console.WriteLine("User input invalid");
