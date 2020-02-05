@@ -103,12 +103,13 @@ namespace PasswordHasher {
 
 			Console.WriteLine();
 			Console.WriteLine("Unable to connect to database");
-		    }                
+		    }   
+		}
 		else {
 
 		    Console.WriteLine("User input invalid");
 		}
-            	}
+
            }     
 	}
 
