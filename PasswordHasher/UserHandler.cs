@@ -121,13 +121,13 @@ namespace PasswordHasher {
 
             switch(input) {
 
-                case 1:
+                case "1":
 
                     Console.Clear();
 	            user.Name = inputHandler.Prompt("Please input the new name or leave blank to cancel");
                     break;
 			    
-                case 2:		
+                case "2":		
 
                     while (true) {
 
