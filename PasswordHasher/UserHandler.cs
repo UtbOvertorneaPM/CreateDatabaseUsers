@@ -2,10 +2,6 @@
 
 namespace PasswordHasher {
 
-	
-       
-	
-	
     public class UserHandler : IUserHandler {
 	    
 	 public static void CreateDbUser(IInputHandler inputHandler) {
