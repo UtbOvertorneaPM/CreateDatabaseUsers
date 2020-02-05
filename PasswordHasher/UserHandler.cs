@@ -124,30 +124,25 @@ namespace PasswordHasher {
                 case 1:
 
                     Console.Clear();
-                    Console.WriteLine("Please input the name you would like to change to or leave blank to cancel");
-                    var newName = Console.ReadLine();
-
-                    user.Name = newName;
-
+	            user.Name = inputHandler.Prompt("Please input the new name or leave blank to cancel");
                     break;
+			    
                 case 2:		
 
                     while (true) {
 
                         Console.Clear();
-                        Console.WriteLine("Please input the new password");
-                        var pass = Console.ReadLine();
+			user.Password = inputHandler.PromptPassword();
 
-                        if (pass.Length < 8) {
+                        if (user.Password.Length < 8) {
 
                             Console.WriteLine("Password has to be at least 8 characters");
                         }
                         else {
 
-                            return EncryptPassword(user);
+                            return EncryptPassword(user);				
                             break;
                         }
-
                     }
 
                     break;				
@@ -155,6 +150,7 @@ namespace PasswordHasher {
             
             return user;
         }
+		
         
         private IUser EncryptPassword(IUser user) {
         
