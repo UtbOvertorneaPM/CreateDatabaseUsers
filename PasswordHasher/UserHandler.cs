@@ -23,9 +23,57 @@ namespace PasswordHasher {
 
                 return null;
             }
+            
+            return EncryptPassword(user);
+        }
+        
+        
+        public IUser EditUser(IInputHandler inputHandler, IUser user) {
+        
+            Console.WriteLine("1: Change user name");
+            Console.WriteLine("2: Change password");
+            var input = Console.ReadLine();
 
+            switch(input) {
+
+                case 1:
+
+                    Console.Clear();
+                    Console.WriteLine("Please input the name you would like to change to or leave blank to cancel");
+                    var newName = Console.ReadLine();
+
+                    user.Name = newName;
+
+                    break;
+                case 2:		
+
+                    while (true) {
+
+                        Console.Clear();
+                        Console.WriteLine("Please input the new password");
+                        var pass = Console.ReadLine();
+
+                        if (pass.Length < 8) {
+
+                            Console.WriteLine("Password has to be at least 8 characters");
+                        }
+                        else {
+
+                            return EncryptPassword(user);
+                            break;
+                        }
+
+                    }
+
+                    break;				
+            }
+            
+            return user;
+        }
+        
+        private IUser EncryptPassword(IUser user) {
+        
             IEncryptionHandler encrypter = new EncryptionHandler();
-
             user.Password = encrypter.EncryptPassword(user.Password);
             
             return user;
