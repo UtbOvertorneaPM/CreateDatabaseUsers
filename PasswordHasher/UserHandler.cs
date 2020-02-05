@@ -83,7 +83,7 @@ namespace PasswordHasher {
                 Console.WriteLine("Please enter the ID of the user you wish to edit or leave blank to return");
                 var id = Console.ReadLine();
 
-                if (string.NullOrEmpty(id)) {
+                if (string.IsNullOrEmpty(id)) {
 
                     return;
                 }
