@@ -4,7 +4,7 @@ namespace PasswordHasher {
 
     public class UserHandler : IUserHandler {
 	    
-	 public static void CreateDbUser(IInputHandler inputHandler) {
+	 public void CreateDbUser(IInputHandler inputHandler) {
 
             IDbHandler dbHandler = new DbHandler();
             IValidator<IUser> validator = new UserValidator();
@@ -66,7 +66,7 @@ namespace PasswordHasher {
         }
         
 	    
-        public static void EditDbUser(IInputHandler inputHandler) {
+        public void EditDbUser(IInputHandler inputHandler) {
 
             IDbHandler dbHandler = new DHandler();
             IValidator<IUser> validator = new UserValidator();
