@@ -9,6 +9,7 @@ namespace PasswordHasher {
             var loop = true;
 
             IInputHandler inputHandler = new InputHandler();
+	    IUserHandler userHandler = new UserHandler();
 
             while (loop) {
                 
@@ -31,12 +32,12 @@ namespace PasswordHasher {
 
                         case 2:
 
-                            CreateDbUser(inputHandler);
+                            userHandler.CreateDbUser(inputHandler);
                             break;
                             
                         case 3:
 
-                            EditDbUser(inputHandler);
+                            userHandler.EditDbUser(inputHandler);
                             break;
 
                         default:
