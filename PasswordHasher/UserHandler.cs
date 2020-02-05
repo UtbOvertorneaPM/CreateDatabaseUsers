@@ -13,7 +13,6 @@ namespace PasswordHasher {
 
             while (true) {
 
-		
                 var user = CreateUser(inputHandler);
 
                 if (validator.Validate(user)) {
